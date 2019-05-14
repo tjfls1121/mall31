@@ -1,0 +1,112 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="cafe.jjdev.mall.mapper.MemberMapper">
+	<delete id="deleteMember" parameterType="cafe.jjdev.mall.vo.Member">
+		DELETE FROM member 
+		WHERE member_id=#{memberId}
+		AND member_pw=#{memberPw}
+	</delete>
+	
+	<update id="updateMemberPw" parameterType="java.util.Map">
+		UPDATE member 
+		SET member_pw=#{memberPwNew}
+		WHERE member_id=#{memberId}
+		AND member_pw=#{memberPw}
+	</update>
+	
+	<update id="updateMember" parameterType="cafe.jjdev.mall.vo.Member">
+		UPDATE member 
+		SET member_name=#{memberName}
+			, member_phone=#{memberPhone}
+			,member_address=#{memberAddress}
+			, member_gender=#{memberGender}
+			, member_email=#{memberEmail}
+		WHERE member_id=#{memberId}
+	</update>
+    
+    <insert id="insertOutMember" parameterType="cafe.jjdev.mall.vo.Member">
+    	INSERT INTO member_out(
+    		member_out_id
+    		, member_out_date) 
+    	VALUES(
+    		#{memberId}
+    		,now())
+    </insert>
+    
+    <insert id="insertMember" parameterType="cafe.jjdev.mall.vo.Member">
+    	INSERT INTO member(
+    		member_id
+    		, member_pw
+    		, member_name
+    		, member_phone
+    		, member_address
+    		, member_gender
+    		, member_email
+    		, member_level)
+		VALUES(
+			#{memberId}
+			,#{memberPw}
+			,#{memberName}
+			,#{memberPhone}
+			,#{memberAddress}
+			,#{memberGender}
+			,#{memberEmail}
+			,#{memberLevel})
+    </insert>
+    
+    <select id="selectForFindPw" parameterType="cafe.jjdev.mall.vo.Member" resultType="cafe.jjdev.mall.vo.Member">
+       SELECT member_pw AS memberPw
+    	FROM member 
+    	WHERE member_id=#{memberId}
+    	AND member_email=#{memberEmail}
+    </select>
+    
+    <select id="selectForFindId" parameterType="cafe.jjdev.mall.vo.Member" resultType="cafe.jjdev.mall.vo.Member">
+    	SELECT member_id AS memberId
+    	FROM member 
+    	WHERE member_name=#{memberName}
+    	AND member_email=#{memberEmail}
+    </select>
+	
+	<select id="selectForDelete" parameterType="cafe.jjdev.mall.vo.Member" resultType="cafe.jjdev.mall.vo.Member">
+		SELECT member_id AS memberId
+			, member_pw AS memberPw
+		FROM member
+		WHERE member_id=#{memberId}
+	</select>
+	
+	<select id="selectOutMember" parameterType="String" resultType="String">
+		SELECT member_out_id AS memberOutId
+		FROM member_out
+		WHERE member_out_id = #{memberId}
+	</select>
+	
+	<select id="selectMemberId" parameterType="String" resultType="String">
+		SELECT member_id AS memberId
+		FROM member
+		WHERE member_id=#{memberId}
+	</select>
+	
+	<select id="selectMember" parameterType="String" resultType="cafe.jjdev.mall.vo.Member">
+		SELECT member_id AS memberId
+			, member_name AS memberName
+			, member_phone AS memberPhone
+			, member_address AS memberAddress
+			, member_gender AS memberGender
+			, member_email AS memberEmail
+			, member_level AS memberLevel
+		FROM member 
+		WHERE member_id=#{memberId}
+	</select>
+	
+    <select id="selectForLogin" parameterType="cafe.jjdev.mall.vo.Member" resultType="cafe.jjdev.mall.vo.Member">
+   		SELECT member_id AS memberId
+	   		, member_name AS memberName
+	   		, member_level AS memberLevel
+   		FROM member 
+   		WHERE member_id=#{memberId}
+   			and member_pw=#{memberPw}
+    </select>
+</mapper>
