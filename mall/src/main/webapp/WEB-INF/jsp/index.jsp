@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>index</h1>
-	<h3>쇼핑몰 메인 페이지_</h3>
+	<h3>쇼핑몰 메인 페이지</h3>
 	<div>
 		<ol>
 			<c:if test="${loginMember == null }">
