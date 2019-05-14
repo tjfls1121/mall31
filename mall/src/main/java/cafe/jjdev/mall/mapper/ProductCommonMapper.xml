@@ -37,8 +37,9 @@
 		ON pc.product_common_no = p.product_common_no
 	</select>
 	
-	<select id="selectProductCommonCount" resultType="int">
+	<select id="selectProductCommonCount" parameterType="int" resultType="int">
         SELECT COUNT(*) FROM product_common
+        WHERE category_no=#{categoryNo}
     </select>
 	
 	<!-- 1. 페이징, 검색(이름만) 작업 해야 함 -->

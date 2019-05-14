@@ -29,12 +29,13 @@ public class ProductCommonService {
 		
 		List<ProductCommon> list = productCommonMapper.selectProductCommonList(map);
 		
-		int productCommonCount = productCommonMapper.selectProductCommonCount();
+		int productCommonCount = productCommonMapper.selectProductCommonCount(categoryNo);
+		System.out.println("[ProductCommonService]productCommonCount:"+productCommonCount);
 		int lastPage = productCommonCount/ROW_PER_PAGE;
 		if(productCommonCount%ROW_PER_PAGE != 0) {
 			lastPage++;
 		}
-		
+
 		System.out.println("[ProductCommonService]lastPage:"+lastPage);
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("list", list);

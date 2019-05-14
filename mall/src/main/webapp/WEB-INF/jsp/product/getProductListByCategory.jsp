@@ -35,7 +35,7 @@
                 <tr>
                 	<td>${productCommon.productCommonNo}</td>
                     <td>${productCommon.categoryNo}</td>
-                    <td><a href="">${productCommon.productCommonName}</a></td>
+                    <td><a href="${pageContext.request.contextPath}/product/getProductDescription">${productCommon.productCommonName}</a></td>
                     <td>${productCommon.productCommonPrice}</td>
                     <td>${productCommon.productCommonDescription}</td>
                     <td>${productCommon.productCommonDate}</td>
