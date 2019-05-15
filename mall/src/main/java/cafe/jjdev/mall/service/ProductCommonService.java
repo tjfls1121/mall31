@@ -16,6 +16,11 @@ import cafe.jjdev.mall.vo.ProductCommon;
 public class ProductCommonService {
 	@Autowired private ProductCommonMapper productCommonMapper;
 	
+	// 상품 옵션
+	public ProductCommon getProduct(int productCommonNo) {
+		return productCommonMapper.selectProductCommonByCategory(productCommonNo);
+	}
+	 
 	// 상품목록 페이징
 	public Map<String, Object> getProductCommonListByCategoryNo(int categoryNo, int currentPage, String searchWord) {
 		final int ROW_PER_PAGE = 10;
@@ -26,11 +31,13 @@ public class ProductCommonService {
 		map.put("rowPerPage", ROW_PER_PAGE);
 		map.put("categoryNo", categoryNo);
 		map.put("searchWord", "%"+searchWord+"%");
+		System.out.println("[ProductCommonService] map : "+map);
 		
 		List<ProductCommon> list = productCommonMapper.selectProductCommonList(map);
 		
-		int productCommonCount = productCommonMapper.selectProductCommonCount(categoryNo);
+		int productCommonCount = productCommonMapper.selectProductCommonCount(map);
 		System.out.println("[ProductCommonService]productCommonCount:"+productCommonCount);
+		
 		int lastPage = productCommonCount/ROW_PER_PAGE;
 		if(productCommonCount%ROW_PER_PAGE != 0) {
 			lastPage++;

@@ -23,6 +23,7 @@
    		WHERE board_no = #{boardNo}
     </select>
     
+    <!--  게시물 상세보기 -->
     <select id="selectBoard" parameterType="int" resultType="cafe.jjdev.mall.vo.Board">
         SELECT
             board_no AS boardNo
@@ -34,6 +35,7 @@
         WHERE board_no=#{boardNo}
     </select>
     
+    <!-- 게시물 목록 -->
     <select id="selectBoardList" parameterType="java.util.Map" resultType="cafe.jjdev.mall.vo.Board">
         SELECT 
             board_no AS boardNo
@@ -45,10 +47,12 @@
         LIMIT #{beginRow}, #{rowPerPage}
     </select>
     
+    <!--  페이징 작업시 사용 -->
     <select id="selectBoardCount" resultType="int">
         SELECT COUNT(*) FROM board
     </select>
     
+	<!-- 게시물 추가 -->
     <insert id="insertBoard" parameterType="cafe.jjdev.mall.vo.Board">
         <selectKey resultType="int" keyProperty="boardNo" order="AFTER">
         	SELECT LAST_INSERT_ID()

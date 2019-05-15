@@ -19,10 +19,9 @@
 	        	<result column="product_size" property="productSize"/>
 	        	<result column="product_stock" property="productStock"/>
 	    </collection>
-
 	</resultMap>
-	
-	<!-- 2. -->
+
+	<!-- 2. 카테고리 목록, 상품 상세, 상품 옵션 -->
 	<select id="selectProductCommonByCategory"
 			parameterType="int"
 			resultMap="ProductCommonMap">
@@ -32,25 +31,33 @@
 			, pc.product_common_price
 			, pc.product_common_description
 			, pc.product_common_date
+			, p.product_no
+			, p.product_color
+			, p.product_size
+			, p.product_stock
 		FROM product_common AS pc 
 		INNER JOIN product AS p
 		ON pc.product_common_no = p.product_common_no
+		WHERE pc.product_common_no = #{productCommonNo}
 	</select>
 	
-	<select id="selectProductCommonCount" parameterType="int" resultType="int">
+	<!-- 1. 상품 목록 페이징, 검색(이름만) -->
+	<select id="selectProductCommonCount" parameterType="java.util.Map" resultType="int">
         SELECT COUNT(*) FROM product_common
         WHERE category_no=#{categoryNo}
+        <if test="searchWord != '%%'">
+			AND product_common_name LIKE #{searchWord}
+		</if>
     </select>
 	
-	<!-- 1. 페이징, 검색(이름만) 작업 해야 함 -->
+	<!-- 1. 상품 목록 페이징, 검색(이름만) -->
 	<select id="selectProductCommonList" 
-			parameterType="int"
+			parameterType="java.util.Map"
 			resultType="cafe.jjdev.mall.vo.ProductCommon">
 		SELECT product_common_no AS productCommonNo
 			, category_no AS categoryNo
 			, product_common_name AS productCommonName
 			, product_common_price AS productCommonPrice
-			, product_common_description AS productCommonDescription
 			, product_common_date AS productCommonDate
 		FROM product_common
 		WHERE category_no = #{categoryNo}

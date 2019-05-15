@@ -15,6 +15,7 @@
 </script>
 </head>
 <body>
+<h1>lastPage = ${lastPage }</h1>
 <a class="btn btn-default" href="${pageContext.request.contextPath}/index">홈으로</a>
 <div class="container">
     <h1>PRODUCT COMMON LIST(spring mvc + mybatis 방식)</h1>
@@ -22,23 +23,17 @@
     <table class="table table-striped">
         <thead>
             <tr>
-            	<th>productCommonNo</th>
             	<th>categoryNo</th>
                 <th>productCommonName</th>
                 <th>productCommonPrice</th>
-                <th>productCommonDescription</th>
-                <th>productCommonDate</th>
             </tr>
         </thead>
         <tbody>
             <c:forEach var="productCommon" items="${productCommonList}">
                 <tr>
-                	<td>${productCommon.productCommonNo}</td>
                     <td>${productCommon.categoryNo}</td>
-                    <td><a href="${pageContext.request.contextPath}/product/getProductDescription">${productCommon.productCommonName}</a></td>
+                    <td><a href="${pageContext.request.contextPath}/product/getProductDescription?productCommonNo=${productCommon.productCommonNo}">${productCommon.productCommonName}</a></td>
                     <td>${productCommon.productCommonPrice}</td>
-                    <td>${productCommon.productCommonDescription}</td>
-                    <td>${productCommon.productCommonDate}</td>
                 </tr>
             </c:forEach>
         </tbody>
