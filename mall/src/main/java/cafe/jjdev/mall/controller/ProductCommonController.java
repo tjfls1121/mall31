@@ -24,7 +24,7 @@ public class ProductCommonController {
 		  ProductCommon productCommon = productCommonService.getProduct(productCommonNo);
 		  System.out.println("[ProductCommonController] productCommon : "+productCommon);
 		  
-		  model.addAttribute("ProductContents", productCommon);
+		  model.addAttribute("productCommon", productCommon);
 		  
 		  return "/product/getProductDescription";
 	  }
